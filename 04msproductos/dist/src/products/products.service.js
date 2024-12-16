@@ -19,7 +19,9 @@ let ProductsService = class ProductsService extends client_1.PrismaClient {
         this.logger.log('Database Conect');
     }
     create(createProductDto) {
-        return createProductDto;
+        return this.product.create({
+            data: createProductDto,
+        });
     }
     findAll() {
         return `This action returns all products`;

@@ -25,6 +25,6 @@ __decorate([
     }),
     (0, class_validator_1.Min)(0),
     (0, class_transformer_1.Type)(() => Number),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], CreateProductDto.prototype, "price", void 0);
 //# sourceMappingURL=create-product.dto.js.map

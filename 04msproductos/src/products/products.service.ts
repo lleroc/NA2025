@@ -11,7 +11,9 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
     this.logger.log('Database Conect');
   }
   create(createProductDto: CreateProductDto) {
-    return createProductDto;
+    return this.product.create({
+      data: createProductDto,
+    });
   }
 
   findAll() {

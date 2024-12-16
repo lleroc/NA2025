@@ -5,7 +5,13 @@ import { PrismaClient } from '@prisma/client';
 export declare class ProductsService extends PrismaClient implements OnModuleInit {
     private readonly logger;
     onModuleInit(): Promise<void>;
-    create(createProductDto: CreateProductDto): CreateProductDto;
+    create(createProductDto: CreateProductDto): import(".prisma/client").Prisma.Prisma__ProductClient<{
+        name: string;
+        price: number;
+        createAt: Date;
+        updateAt: Date;
+        id: number;
+    }, never, import("@prisma/client/runtime/library").DefaultArgs>;
     findAll(): string;
     findOne(id: number): string;
     update(id: number, updateProductDto: UpdateProductDto): string;
