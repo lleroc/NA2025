@@ -23,17 +23,52 @@ let ProductsService = class ProductsService extends client_1.PrismaClient {
             data: createProductDto,
         });
     }
-    findAll() {
-        return `This action returns all products`;
+    async findAll(paginationDto) {
+        const { page, limit } = paginationDto;
+        const totalpages = await this.product.count({
+            where: { disponible: true },
+        });
+        const lastpage = Math.ceil(totalpages / limit);
+        return {
+            data: await this.product.findMany({
+                skip: (page - 1) * limit,
+                take: limit,
+                where: {
+                    disponible: true,
+                },
+            }),
+            meta: {
+                total: totalpages,
+                page: page,
+                lastpage: lastpage,
+            },
+        };
     }
-    findOne(id) {
-        return `This action returns a #${id} product`;
+    async findOne(id) {
+        const product = await this.product.findFirst({
+            where: { id, disponible: true },
+        });
+        if (!product) {
+            throw new common_1.NotFoundException(`No se encontro el producto con el ID #${id}`);
+        }
+        return product;
     }
-    update(id, updateProductDto) {
-        return `This action updates a #${id} product`;
+    async update(id, updateProductDto) {
+        await this.findOne(id);
+        return this.product.update({
+            where: { id },
+            data: updateProductDto,
+        });
     }
-    remove(id) {
-        return `This action removes a #${id} product`;
+    async remove(id) {
+        await this.findOne(id);
+        const product = await this.product.update({
+            where: { id },
+            data: {
+                disponible: false,
+            },
+        });
+        return product;
     }
 };
 exports.ProductsService = ProductsService;
