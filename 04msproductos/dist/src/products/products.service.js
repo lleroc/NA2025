@@ -54,10 +54,11 @@ let ProductsService = class ProductsService extends client_1.PrismaClient {
         return product;
     }
     async update(id, updateProductDto) {
+        const { id: __, ...data } = updateProductDto;
         await this.findOne(id);
         return this.product.update({
             where: { id },
-            data: updateProductDto,
+            data: data,
         });
     }
     async remove(id) {

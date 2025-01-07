@@ -36,7 +36,7 @@ export declare class ProductsController {
         updateAt: Date;
         id: number;
     }>;
-    update(id: string, updateProductDto: UpdateProductDto): Promise<{
+    update(updateProductDto: UpdateProductDto): Promise<{
         name: string;
         price: number;
         disponible: boolean;
